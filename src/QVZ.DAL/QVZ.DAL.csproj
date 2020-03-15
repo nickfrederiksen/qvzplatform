@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200315084718_Initial.cs" />
+    <Compile Remove="Migrations\20200315084718_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200315084951_Initial.cs" />
+    <Compile Remove="Migrations\20200315084951_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200315085241_Initial.cs" />
+    <Compile Remove="Migrations\20200315085241_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200315085616_Initial.cs" />
+    <Compile Remove="Migrations\20200315085616_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200315085808_Initial.cs" />
+    <Compile Remove="Migrations\20200315085808_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200315090215_Initial.cs" />
+    <Compile Remove="Migrations\20200315090215_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200315090313_Initial.cs" />
+    <Compile Remove="Migrations\20200315090313_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200315090452_Initial.cs" />
+    <Compile Remove="Migrations\20200315090452_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200315091010_Initial.cs" />
+    <Compile Remove="Migrations\20200315091010_Initial.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
+  </ItemGroup>
+
+</Project>

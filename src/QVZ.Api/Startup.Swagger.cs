@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Nick Frederiksen. All Rights Reserved.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Builder;

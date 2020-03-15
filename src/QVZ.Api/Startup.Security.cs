@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Nick Frederiksen. All Rights Reserved.
+
+using System;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
@@ -25,7 +27,7 @@ namespace QVZ.Api
 				   {
 					   var claim = context.User.FindFirstValue("http://schemas.microsoft.com/identity/claims/scope") ?? string.Empty;
 					   var scopes = claim.Split(" ");
-					   return scopes.Contains(Scopes.Read, StringComparer.OrdinalIgnoreCase) || scopes.Contains(Scopes.Admin, StringComparer.OrdinalIgnoreCase);
+					   return scopes.Contains(Scopes.Read, StringComparer.OrdinalIgnoreCase);
 				   })
 				   .Build());
 
@@ -35,7 +37,17 @@ namespace QVZ.Api
 				   {
 					   var claim = context.User.FindFirstValue("http://schemas.microsoft.com/identity/claims/scope") ?? string.Empty;
 					   var scopes = claim.Split(" ");
-					   return scopes.Contains(Scopes.Write, StringComparer.OrdinalIgnoreCase) || scopes.Contains(Scopes.Admin, StringComparer.OrdinalIgnoreCase);
+					   return scopes.Contains(Scopes.Write, StringComparer.OrdinalIgnoreCase);
+				   })
+				   .Build());
+
+				o.AddPolicy(Scopes.Admin, new AuthorizationPolicyBuilder()
+				   .RequireAuthenticatedUser()
+				   .RequireAssertion(context =>
+				   {
+					   var claim = context.User.FindFirstValue("http://schemas.microsoft.com/identity/claims/scope") ?? string.Empty;
+					   var scopes = claim.Split(" ");
+					   return scopes.Contains(Scopes.Admin, StringComparer.OrdinalIgnoreCase);
 				   })
 				   .Build());
 			});
@@ -44,7 +56,7 @@ namespace QVZ.Api
 		private void SetupAuthentication(IServiceCollection services)
 		{
 			services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-							.AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+							.AddAzureADBearer(options => this.Configuration.Bind("AzureAd", options));
 
 			services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationScheme, options =>
 			{

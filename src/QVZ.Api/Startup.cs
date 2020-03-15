@@ -1,3 +1,6 @@
+// Copyright (c) Nick Frederiksen. All Rights Reserved.
+
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using QVZ.Api.Constants.Authorization;
+using QVZ.DAL;
 
 namespace QVZ.Api
 {
@@ -21,6 +25,10 @@ namespace QVZ.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			this.SetupAuthorization(services);
+
+			services.AddAutoMapper(this.GetType().Assembly);
+
+			services.AddDatabaseContext(this.Configuration.GetConnectionString("QVZDB"));
 
 			services.AddControllers();
 
