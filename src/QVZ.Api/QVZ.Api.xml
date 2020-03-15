@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QVZ.Api</name>
+    </assembly>
+    <members>
+        <member name="M:QVZ.Api.Startup.SetupSwaggerService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Sets up the Swagger services.
+            </summary>
+            <param name="services">Service collection.</param>
+        </member>
+        <member name="M:QVZ.Api.Startup.SetupSwaggerUi(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Sets up the Swagger UI.
+            </summary>
+            <param name="app">Application builder.</param>
+        </member>
+    </members>
+</doc>
