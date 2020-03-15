@@ -39,34 +39,39 @@ namespace QVZ.DAL
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			SetUpdateableEntityDefaults<User>(modelBuilder);
-			SetUserManagedEntityDefaults<Dashboard>(modelBuilder);
+			var dashboardEntity = SetUserManagedEntityDefaults<Dashboard>(modelBuilder);
+			dashboardEntity.HasOne(e => e.User).WithMany().OnDelete(DeleteBehavior.Cascade);
+
+			dashboardEntity.HasIndex(e => new { e.UserId, e.Name }).IsUnique(true);
 		}
 
-		private void SetUserManagedEntityDefaults<TEntity>(ModelBuilder modelBuilder)
+		private EntityTypeBuilder<TEntity> SetUserManagedEntityDefaults<TEntity>(ModelBuilder modelBuilder)
 			where TEntity : UserManagedEntity
 		{
-			var entity = modelBuilder.Entity<TEntity>();
+			var entity = this.SetUpdateableEntityDefaults<TEntity>(modelBuilder);
 			entity.HasOne(e => e.UserCreatedBy).WithMany().OnDelete(DeleteBehavior.Restrict);
 			entity.HasOne(e => e.UserUpdatedBy).WithMany().OnDelete(DeleteBehavior.Restrict);
 
-			this.SetUpdateableEntityDefaults<TEntity>(modelBuilder);
+			return entity;
 		}
 
-		private void SetUpdateableEntityDefaults<TEntity>(ModelBuilder modelBuilder)
+		private EntityTypeBuilder<TEntity> SetUpdateableEntityDefaults<TEntity>(ModelBuilder modelBuilder)
 			where TEntity : UpdateableEntity
 		{
-			var entity = modelBuilder.Entity<TEntity>();
+			var entity = this.SetEntityDefaults<TEntity>(modelBuilder); ;
 			entity.Property(p => p.CreatedDate).ValueGeneratedOnAdd().HasDefaultValueSql("GETUTCDATE()");
 			entity.Property(p => p.UpdatedDate).ValueGeneratedOnAddOrUpdate().HasDefaultValueSql("GETUTCDATE()");
 
-			this.SetEntityDefaults<TEntity>(modelBuilder);
+			return entity;
 		}
 
-		private void SetEntityDefaults<TEntity>(ModelBuilder modelBuilder)
+		private EntityTypeBuilder<TEntity> SetEntityDefaults<TEntity>(ModelBuilder modelBuilder)
 			where TEntity : Entity
 		{
 			var entity = modelBuilder.Entity<TEntity>();
 			entity.Property(p => p.Guid).ValueGeneratedOnAdd().HasDefaultValueSql("NEWSEQUENTIALID()");
+
+			return entity;
 		}
 
 		private void SetDates(EntityEntry entry, object entity)

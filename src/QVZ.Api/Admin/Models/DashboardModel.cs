@@ -16,5 +16,8 @@ namespace QVZ.Api.Admin.Models
 		[BindRequired]
 		[StringLength(120)]
 		public string Name { get; set; }
+
+		[BindNever]
+		public Guid UserId { get; internal set; }
 	}
 }

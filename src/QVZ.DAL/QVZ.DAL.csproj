@@ -23,6 +23,8 @@
     <Compile Remove="Migrations\20200315090452_Initial.Designer.cs" />
     <Compile Remove="Migrations\20200315091010_Initial.cs" />
     <Compile Remove="Migrations\20200315091010_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200315143406_AddUserToDashboard.cs" />
+    <Compile Remove="Migrations\20200315143406_AddUserToDashboard.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
