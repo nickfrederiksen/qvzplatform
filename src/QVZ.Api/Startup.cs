@@ -26,7 +26,14 @@ namespace QVZ.Api
 		{
 			this.SetupAuthorization(services);
 
-			services.AddAutoMapper(this.GetType().Assembly);
+			services.AddHttpContextAccessor();
+
+			services.AddAutoMapper(
+				(provider, options) =>
+				{
+					options.ConstructServicesUsing(provider.GetService);
+				},
+				this.GetType().Assembly);
 
 			services.AddDatabaseContext(this.Configuration.GetConnectionString("QVZDB"));
 

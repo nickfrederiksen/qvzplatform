@@ -1,15 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QVZ.DAL.Entities;
+using QVZ.DAL.Entities.ReferenceTables;
 
 namespace QVZ.DAL
 {
 	public interface IDatabaseContext
 	{
-		DbSet<TEntity> Set<TEntity>()
-			where TEntity : class;
 
 		DbSet<User> Users { get; }
 
 		DbSet<Dashboard> Dashboards { get; }
+
+		DbSet<Organization> Organizations { get; }
+
+		DbSet<OrganizationUserReference> OrganizationUserReferences { get; }
+
+		DbSet<TEntity> Set<TEntity>()
+			where TEntity : class;
+
+		User GetUserReference(string userObjectId);
 	}
 }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QVZ.DAL.Entities;
 using QVZ.DAL.Entities.Abstracts;
+using QVZ.DAL.Entities.ReferenceTables;
 
 namespace QVZ.DAL
 {
@@ -17,6 +18,10 @@ namespace QVZ.DAL
 		public DbSet<User> Users { get; set; }
 
 		public DbSet<Dashboard> Dashboards { get; set; }
+
+		public DbSet<Organization> Organizations { get; set; }
+
+		public DbSet<OrganizationUserReference> OrganizationUserReferences { get; set; }
 
 		public int SaveChanges(string userObjectId)
 		{
@@ -36,13 +41,35 @@ namespace QVZ.DAL
 			return this.SaveChanges();
 		}
 
+		public User GetUserReference(string userObjectId)
+		{
+			// First try to find the user in the local collection, then in the DB:
+			var user = this.Users.Local.SingleOrDefault(u => u.ObjectId == userObjectId) ?? this.Users.SingleOrDefault(u => u.ObjectId == userObjectId);
+			if (user == null)
+			{
+				user = new User()
+				{
+					ObjectId = userObjectId,
+				};
+			}
+
+			return user;
+		}
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			SetUpdateableEntityDefaults<User>(modelBuilder);
+
 			var dashboardEntity = SetUserManagedEntityDefaults<Dashboard>(modelBuilder);
 			dashboardEntity.HasOne(e => e.User).WithMany().OnDelete(DeleteBehavior.Cascade);
-
 			dashboardEntity.HasIndex(e => new { e.UserId, e.Name }).IsUnique(true);
+
+			this.SetUserManagedEntityDefaults<Organization>(modelBuilder);
+
+			var organizationUserReferenceEntity = modelBuilder.Entity<OrganizationUserReference>();
+			organizationUserReferenceEntity.HasKey(r => new { r.UserId, r.OrganizationId });
+			organizationUserReferenceEntity.HasOne(r => r.Organization).WithMany(o => o.UserReferences).OnDelete(DeleteBehavior.Cascade);
+			organizationUserReferenceEntity.HasOne(r => r.User).WithMany().OnDelete(DeleteBehavior.Cascade);
 		}
 
 		private EntityTypeBuilder<TEntity> SetUserManagedEntityDefaults<TEntity>(ModelBuilder modelBuilder)
@@ -96,22 +123,6 @@ namespace QVZ.DAL
 					userManagedEntity.UserCreatedBy = userManagedEntity.UserUpdatedBy;
 				}
 			}
-		}
-
-		private User GetUserReference(string userObjectId)
-		{
-			var user = this.Users.SingleOrDefault(u => u.ObjectId == userObjectId);
-			if (user == null)
-			{
-				user = new User()
-				{
-					ObjectId = userObjectId,
-				};
-
-				this.Users.Add(user);
-			}
-
-			return user;
 		}
 	}
 }

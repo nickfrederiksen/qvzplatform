@@ -2,10 +2,10 @@
 
 using System;
 using System.Linq;
-using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QVZ.Api.Admin.Controllers.Abstracts;
 using QVZ.Api.Admin.Models;
 using QVZ.Api.Constants.Authorization;
 using QVZ.DAL;
@@ -13,28 +13,26 @@ using QVZ.DAL.Entities;
 
 namespace QVZ.Api.Admin.Controllers
 {
-	[ApiController]
 	[Area("admin")]
 	[Route("[area]/api/dashboards")]
 	[Authorize(Scopes.Admin)]
-	public class DashboardController : ControllerBase
+	public class DashboardController : AdminController<DashboardModel, Dashboard>
 	{
 		private readonly IEditableDatabaseContext databaseContext;
-		private readonly IMapper mapper;
 
 		public DashboardController(
-			IEditableDatabaseContext editableDatabaseContext,
+			IEditableDatabaseContext databaseContext,
 			IMapper mapper)
+			: base(databaseContext, mapper)
 		{
-			this.databaseContext = editableDatabaseContext;
-			this.mapper = mapper;
+			this.databaseContext = databaseContext;
 		}
 
 		[HttpGet]
 		public IActionResult GetAll()
 		{
-			var allDashboards = this.databaseContext.GetUserQuery<Dashboard>(this.User);
-			var models = this.mapper.ProjectTo<DashboardModel>(allDashboards);
+			var allDashboards = this.DbSet.GetUserQuery(this.User);
+			var models = this.ProjectToModel(allDashboards);
 
 			return this.Ok(models);
 		}
@@ -48,9 +46,9 @@ namespace QVZ.Api.Admin.Controllers
 				return this.NotFound();
 			}
 
-			var model = this.mapper.Map<DashboardModel>(entity);
+			var model = this.GetModel(entity);
 
-			return this.Ok();
+			return this.Ok(model);
 		}
 
 		[HttpPost]
@@ -62,15 +60,15 @@ namespace QVZ.Api.Admin.Controllers
 				return this.Conflict();
 			}
 
-			var entity = this.mapper.Map<Dashboard>(model);
+			var entity = this.GetEntity(model);
 
-			entity.User = this.databaseContext.GetUser(this.User);
+			//entity.User = this.databaseContext.GetUser(this.User);
 
 			this.databaseContext.Dashboards.Add(entity);
 
 			this.databaseContext.SaveChanges(this.User);
 
-			model = this.mapper.Map<DashboardModel>(entity);
+			model = this.GetModel(entity);
 
 			return this.CreatedAtAction(nameof(this.GetSingle), new { id = model.Id }, model);
 		}
@@ -91,7 +89,7 @@ namespace QVZ.Api.Admin.Controllers
 				return this.Conflict();
 			}
 
-			this.mapper.Map(model, entity);
+			entity = this.GetEntity(model, entity);
 
 			this.databaseContext.SaveChanges(this.User);
 
