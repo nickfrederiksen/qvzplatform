@@ -6,7 +6,6 @@ namespace QVZ.DAL
 {
 	public interface IDatabaseContext
 	{
-
 		DbSet<User> Users { get; }
 
 		DbSet<Dashboard> Dashboards { get; }
@@ -14,6 +13,10 @@ namespace QVZ.DAL
 		DbSet<Organization> Organizations { get; }
 
 		DbSet<OrganizationUserReference> OrganizationUserReferences { get; }
+
+		DbSet<DashboardPanel> DashboardPanels { get; }
+
+		DbSet<DashboardPanelType> DashboardPanelTypes { get; }
 
 		DbSet<TEntity> Set<TEntity>()
 			where TEntity : class;

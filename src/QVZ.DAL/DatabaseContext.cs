@@ -23,6 +23,10 @@ namespace QVZ.DAL
 
 		public DbSet<OrganizationUserReference> OrganizationUserReferences { get; set; }
 
+		public DbSet<DashboardPanel> DashboardPanels { get; set; }
+
+		public DbSet<DashboardPanelType> DashboardPanelTypes { get; set; }
+
 		public int SaveChanges(string userObjectId)
 		{
 			User user = GetUserReference(userObjectId);
@@ -63,6 +67,11 @@ namespace QVZ.DAL
 			var dashboardEntity = SetUserManagedEntityDefaults<Dashboard>(modelBuilder);
 			dashboardEntity.HasOne(e => e.User).WithMany().OnDelete(DeleteBehavior.Cascade);
 			dashboardEntity.HasIndex(e => new { e.UserId, e.Name }).IsUnique(true);
+			dashboardEntity.HasMany(d => d.Panels).WithOne(p => p.Dashboard).OnDelete(DeleteBehavior.Cascade);
+
+			var panelEntity = SetUpdateableEntityDefaults<DashboardPanel>(modelBuilder);
+			panelEntity.HasOne(e => e.Position).WithOne(e => e.Panel).OnDelete(DeleteBehavior.Cascade);
+			this.SetupPanelTypes(modelBuilder);
 
 			this.SetUserManagedEntityDefaults<Organization>(modelBuilder);
 
@@ -70,6 +79,31 @@ namespace QVZ.DAL
 			organizationUserReferenceEntity.HasKey(r => new { r.UserId, r.OrganizationId });
 			organizationUserReferenceEntity.HasOne(r => r.Organization).WithMany(o => o.UserReferences).OnDelete(DeleteBehavior.Cascade);
 			organizationUserReferenceEntity.HasOne(r => r.User).WithMany().OnDelete(DeleteBehavior.Cascade);
+		}
+
+		private void SetupPanelTypes(ModelBuilder modelBuilder)
+		{
+			var panelTypeEntity = SetUpdateableEntityDefaults<DashboardPanelType>(modelBuilder);
+			panelTypeEntity.HasMany(e => e.Panels).WithOne(e => e.Type).OnDelete(DeleteBehavior.Cascade);
+
+			DateTime utcNow = DateTime.UtcNow;
+			panelTypeEntity.HasData(
+				new DashboardPanelType()
+				{
+					Id = 1,
+					CreatedDate = utcNow,
+					UpdatedDate = utcNow,
+					Guid = new Guid("89dbc8b3-3c47-4734-a45d-ae6348982fd5"),
+					Name = "Organizations"
+				},
+				new DashboardPanelType()
+				{
+					Id = 2,
+					CreatedDate = utcNow,
+					UpdatedDate = utcNow,
+					Guid = new Guid("daa76c7a-02a4-4d4e-8f31-491cf850b996"),
+					Name = "Users"
+				});
 		}
 
 		private EntityTypeBuilder<TEntity> SetUserManagedEntityDefaults<TEntity>(ModelBuilder modelBuilder)

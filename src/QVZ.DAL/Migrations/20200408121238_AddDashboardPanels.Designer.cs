@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QVZ.DAL;
 
 namespace QVZ.DAL.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200408121238_AddDashboardPanels")]
+    partial class AddDashboardPanels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,16 +78,14 @@ namespace QVZ.DAL.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("DashboardId")
                         .HasColumnType("int");
 
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWSEQUENTIALID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -97,8 +97,7 @@ namespace QVZ.DAL.Migrations
 
                     b.Property<DateTime>("UpdatedDate")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -134,13 +133,11 @@ namespace QVZ.DAL.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWSEQUENTIALID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(64)")
@@ -148,8 +145,7 @@ namespace QVZ.DAL.Migrations
 
                     b.Property<DateTime>("UpdatedDate")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -159,18 +155,18 @@ namespace QVZ.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2020, 4, 8, 12, 47, 45, 241, DateTimeKind.Utc).AddTicks(3467),
+                            CreatedDate = new DateTime(2020, 4, 8, 12, 12, 37, 805, DateTimeKind.Utc).AddTicks(7045),
                             Guid = new Guid("89dbc8b3-3c47-4734-a45d-ae6348982fd5"),
                             Name = "Organizations",
-                            UpdatedDate = new DateTime(2020, 4, 8, 12, 47, 45, 241, DateTimeKind.Utc).AddTicks(3467)
+                            UpdatedDate = new DateTime(2020, 4, 8, 12, 12, 37, 805, DateTimeKind.Utc).AddTicks(7045)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2020, 4, 8, 12, 47, 45, 241, DateTimeKind.Utc).AddTicks(3467),
+                            CreatedDate = new DateTime(2020, 4, 8, 12, 12, 37, 805, DateTimeKind.Utc).AddTicks(7045),
                             Guid = new Guid("daa76c7a-02a4-4d4e-8f31-491cf850b996"),
                             Name = "Users",
-                            UpdatedDate = new DateTime(2020, 4, 8, 12, 47, 45, 241, DateTimeKind.Utc).AddTicks(3467)
+                            UpdatedDate = new DateTime(2020, 4, 8, 12, 12, 37, 805, DateTimeKind.Utc).AddTicks(7045)
                         });
                 });
 

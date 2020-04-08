@@ -1,28 +1,28 @@
-﻿// Copyright (c) Nick Frederiksen. All Rights Reserved.
-
-using System;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QVZ.Api.Admin.Controllers.Abstracts;
 using QVZ.Api.Admin.Models;
+using QVZ.Api.BusinessLogic.ActionFilters;
 using QVZ.Api.Constants.Authorization;
 using QVZ.DAL;
 using QVZ.DAL.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace QVZ.Api.Admin.Controllers
 {
 	[Area("admin")]
-	[Route("[area]/api/dashboards")]
+	[Route("[area]/api/dashboardtypes")]
 	[Authorize(Scopes.Admin)]
-	public class DashboardController : AdminController<DashboardModel, Dashboard>
+	public class DashboardPanelTypeController : AdminController<DashboardPanelTypeModel, DashboardPanelType>
 	{
 		private readonly IEditableDatabaseContext databaseContext;
 
-		public DashboardController(
-			IEditableDatabaseContext databaseContext,
-			IMapper mapper)
+		public DashboardPanelTypeController(IEditableDatabaseContext databaseContext, IMapper mapper)
 			: base(databaseContext, mapper)
 		{
 			this.databaseContext = databaseContext;
@@ -31,7 +31,7 @@ namespace QVZ.Api.Admin.Controllers
 		[HttpGet]
 		public IActionResult GetAll()
 		{
-			var allDashboards = this.DbSet.GetUserQuery(this.User);
+			var allDashboards = this.DbSet;
 			var models = this.ProjectToModel(allDashboards);
 
 			return this.Ok(models);
@@ -40,7 +40,7 @@ namespace QVZ.Api.Admin.Controllers
 		[HttpGet("{id:guid}")]
 		public IActionResult GetSingle(Guid id)
 		{
-			var entity = this.DbSet.GetUserQuery(this.User).SingleOrDefault(d => d.Guid == id);
+			var entity = this.DbSet.SingleOrDefault(d => d.Guid == id);
 			if (entity == null)
 			{
 				return this.NotFound();
@@ -52,17 +52,15 @@ namespace QVZ.Api.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Create(DashboardModel model)
+		public IActionResult Create(DashboardPanelTypeModel model)
 		{
-			var isConflict = this.DbSet.GetUserQuery(this.User).Any(d => d.Name == model.Name);
+			var isConflict = this.DbSet.Any(d => d.Name == model.Name);
 			if (isConflict)
 			{
 				return this.Conflict();
 			}
 
 			var entity = this.GetEntity(model);
-
-			//entity.User = this.databaseContext.GetUser(this.User);
 
 			this.DbSet.Add(entity);
 
@@ -74,16 +72,16 @@ namespace QVZ.Api.Admin.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public IActionResult Update(Guid id, DashboardModel model)
+		public IActionResult Update(Guid id, DashboardPanelTypeModel model)
 		{
-			var entity = this.DbSet.GetUserQuery(this.User).SingleOrDefault(d => d.Guid == id);
+			var entity = this.DbSet.SingleOrDefault(d => d.Guid == id);
 
 			if (entity == null)
 			{
 				return this.NotFound();
 			}
 
-			var isConflict = this.DbSet.GetUserQuery(this.User).Any(d => d.Name == model.Name && d.Guid != id);
+			var isConflict = this.DbSet.Any(d => d.Name == model.Name && d.Guid != id);
 			if (isConflict)
 			{
 				return this.Conflict();
@@ -99,7 +97,7 @@ namespace QVZ.Api.Admin.Controllers
 		[HttpDelete("{id}")]
 		public IActionResult Delete(Guid id)
 		{
-			var entity = this.DbSet.GetUserQuery(this.User).SingleOrDefault(d => d.Guid == id);
+			var entity = this.DbSet.SingleOrDefault(d => d.Guid == id);
 
 			if (entity == null)
 			{

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using QVZ.DAL.Entities.Abstracts;
 using QVZ.DAL.Entities.Interfaces;
@@ -15,5 +16,7 @@ namespace QVZ.DAL.Entities
 
 		[ForeignKey(nameof(UserId))]
 		public virtual User User { get; set; }
+
+		public ICollection<DashboardPanel> Panels { get; set; } = new HashSet<DashboardPanel>();
 	}
 }
