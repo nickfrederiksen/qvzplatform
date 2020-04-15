@@ -1,10 +1,15 @@
 import fs from 'fs';
 import path from 'path';
-
 export default {
 	mode: 'spa',
+	env: {
+		port: process.env.port,
+		adTenantId: process.env.adTenantId,
+		adClientId: process.env.adClientId,
+		adScopes: process.env.adScopes,
+	},
 	server: {
-		port: process.env.NODE_ENV == 'development' ? 3000 : 8080,
+		port: process.env.port,
 		timing: false,
 		host: process.env.NODE_ENV == 'development' ? "localhost" : '0.0.0.0',
 		https: process.env.NODE_ENV == 'development' ? {
@@ -73,7 +78,11 @@ export default {
 		/*
 		** You can extend webpack config here
 		*/
-		extend(config: unknown, ctx: unknown) {
+		extend(config, ctx) {
+			console.log(ctx);
+			if (ctx.isDev) {
+				config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
+			}
 		}
 	}
 }

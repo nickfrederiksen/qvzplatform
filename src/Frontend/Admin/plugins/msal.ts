@@ -16,13 +16,15 @@ declare module 'vue/types/vue' {
 	}
 }
 
+const scopes = process.env.adScopes!.split(/,/g);
+
 const myPlugin: Plugin = (context, inject) => {
 
 	inject('msal', new MSAL(
 		{
 			auth: {
-				clientId: '',
-				tenantId: "",
+				clientId: process.env.adClientId!,
+				tenantId: process.env.adTenantId!,
 				onAuthentication: (ctx, error, response) => {
 					const user: IUserModel = {
 						isAuthenticated: false,
@@ -39,7 +41,7 @@ const myPlugin: Plugin = (context, inject) => {
 						const msalUser = msal.data.user as any;
 						user.userName = msalUser.name;
 					}
-
+					console.log(ctx);
 					context.store.dispatch("userStore/updateUser", user);
 				},
 				beforeSignOut: (ctx) => {
@@ -49,6 +51,9 @@ const myPlugin: Plugin = (context, inject) => {
 
 					context.store.dispatch("userStore/updateUser", user);
 				}
+			},
+			request: {
+				scopes
 			}
 		}, Vue /* [optional] should be passed as an argument if you want to the framework.globalMixin option*/
 	))
