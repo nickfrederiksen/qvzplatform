@@ -21,8 +21,8 @@ const myPlugin: Plugin = (context, inject) => {
 	inject('msal', new MSAL(
 		{
 			auth: {
-				clientId: '9709edb4-1362-49d2-9630-9c345e2fbc54',
-				tenantId: "431326c9-9144-4c33-9db1-76a761883b2e",
+				clientId: '',
+				tenantId: "",
 				onAuthentication: (ctx, error, response) => {
 					const user: IUserModel = {
 						isAuthenticated: false,
