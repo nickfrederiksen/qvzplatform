@@ -7,6 +7,7 @@ export default {
 		adTenantId: process.env.adTenantId,
 		adClientId: process.env.adClientId,
 		adScopes: process.env.adScopes,
+		apiBaseUrl:process.env.apiBaseUrl
 	},
 	server: {
 		port: process.env.port,
@@ -47,7 +48,8 @@ export default {
 	** Plugins to load before mounting the App
 	*/
 	plugins: [
-		'@/plugins/msal'
+		'@/plugins/msal',
+		'@/plugins/apiAxios'
 	],
 	/*
 	** Nuxt.js dev-modules

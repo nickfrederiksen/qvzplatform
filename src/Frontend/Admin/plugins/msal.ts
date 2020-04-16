@@ -3,7 +3,8 @@ import MSAL from 'vue-msal/lib/plugin';
 
 import { Plugin } from '@nuxt/types'
 import { MSALBasic, DataObject } from 'vue-msal/lib/src/types';
-import { IUserModel } from '~/store/userStore';
+import { userStore } from '~/store';
+import { IUserModel } from '~/store/userModule';
 
 declare module '@nuxt/types' {
 	interface NuxtAppOptions {
@@ -26,30 +27,14 @@ const myPlugin: Plugin = (context, inject) => {
 				clientId: process.env.adClientId!,
 				tenantId: process.env.adTenantId!,
 				onAuthentication: (ctx, error, response) => {
-					const user: IUserModel = {
-						isAuthenticated: false,
-					};
-
-					context.store.dispatch("userStore/updateUser", user);
+					userStore.sigoutUser();
 				},
 				onToken: (ctx, error, response) => {
 					const msal = ctx as MSALBasic;
-					const user: IUserModel = {
-						isAuthenticated: msal.isAuthenticated(),
-					};
-					if (user.isAuthenticated) {
-						const msalUser = msal.data.user as any;
-						user.userName = msalUser.name;
-					}
-					console.log(ctx);
-					context.store.dispatch("userStore/updateUser", user);
+					userStore.siginUser(msal);
 				},
 				beforeSignOut: (ctx) => {
-					const user: IUserModel = {
-						isAuthenticated: false,
-					};
-
-					context.store.dispatch("userStore/updateUser", user);
+					userStore.sigoutUser();
 				}
 			},
 			request: {

@@ -5,7 +5,9 @@
 			<div class="row">
 				<sidebar></sidebar>
 				<div class="col-10 offset-2">
-					<nuxt />
+					<main>
+						<nuxt />
+					</main>
 				</div>
 			</div>
 		</div>

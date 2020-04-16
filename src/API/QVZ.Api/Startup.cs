@@ -37,6 +37,8 @@ namespace QVZ.Api
 
 			services.AddDatabaseContext(this.Configuration.GetConnectionString("QVZDB"));
 
+			services.AddCors();
+
 			services.AddControllers();
 
 			this.SetupSwaggerService(services);
@@ -56,11 +58,15 @@ namespace QVZ.Api
 
 			app.UseAuthentication();
 			app.UseAuthorization();
+			app.UseCors(configure =>
+			{
+				configure.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+			});
 
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers()
-				.RequireAuthorization(new AuthorizeAttribute(Scopes.Read)); ;
+				.RequireAuthorization(new AuthorizeAttribute(Scopes.Read));
 			});
 
 			this.SetupSwaggerUi(app, env);
