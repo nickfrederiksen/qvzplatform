@@ -7,6 +7,7 @@ using QVZ.Api.BusinessLogic.ActionFilters;
 using QVZ.Api.Constants.Authorization;
 using QVZ.DAL;
 using QVZ.DAL.Entities;
+using QVZ.DAL.Entities.Dashboards;
 using System;
 using System.Collections.Generic;
 using System.Linq;

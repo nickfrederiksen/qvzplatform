@@ -64,7 +64,7 @@ namespace QVZ.Api
 				options.Authority += "/v2.0";
 
 				// The valid audiences are both the Client ID (options.Audience) and api://{ClientID}
-				options.TokenValidationParameters.ValidAudiences = new string[] { options.Audience, $"api://{options.Audience}" };
+				//options.TokenValidationParameters.ValidAudiences = new string[] { options.Audience, $"api://{options.Audience}" };
 
 			});
 		}

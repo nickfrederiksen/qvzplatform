@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QVZ.DAL.Entities;
+using QVZ.DAL.Entities.Dashboards;
 using QVZ.DAL.Entities.ReferenceTables;
 
 namespace QVZ.DAL

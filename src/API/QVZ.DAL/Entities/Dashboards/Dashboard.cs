@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using QVZ.DAL.Entities.Abstracts;
 using QVZ.DAL.Entities.Interfaces;
 
-namespace QVZ.DAL.Entities
+namespace QVZ.DAL.Entities.Dashboards
 {
 	public class Dashboard : UserManagedEntity, IUserOwned
 	{

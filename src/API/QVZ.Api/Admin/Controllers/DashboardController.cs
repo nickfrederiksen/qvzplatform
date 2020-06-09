@@ -10,6 +10,7 @@ using QVZ.Api.Admin.Models;
 using QVZ.Api.Constants.Authorization;
 using QVZ.DAL;
 using QVZ.DAL.Entities;
+using QVZ.DAL.Entities.Dashboards;
 
 namespace QVZ.Api.Admin.Controllers
 {

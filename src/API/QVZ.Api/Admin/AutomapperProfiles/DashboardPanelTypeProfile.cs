@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using QVZ.Api.Admin.Models;
 using QVZ.DAL.Entities;
+using QVZ.DAL.Entities.Dashboards;
 
 namespace QVZ.Api.Admin.AutomapperProfiles
 {

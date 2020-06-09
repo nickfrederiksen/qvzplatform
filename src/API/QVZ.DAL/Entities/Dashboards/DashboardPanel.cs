@@ -1,13 +1,8 @@
-﻿using QVZ.DAL.Entities.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using QVZ.DAL.Entities.Abstracts;
 
-namespace QVZ.DAL.Entities
+namespace QVZ.DAL.Entities.Dashboards
 {
 	public class DashboardPanel : UpdateableEntity
 	{

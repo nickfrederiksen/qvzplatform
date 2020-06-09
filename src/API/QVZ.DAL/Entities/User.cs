@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 using QVZ.DAL.Entities.Abstracts;
 
 namespace QVZ.DAL.Entities
