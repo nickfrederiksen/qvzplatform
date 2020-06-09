@@ -4,8 +4,7 @@ namespace QVZ.Api.Constants.Authorization
 {
 	internal static class Scopes
 	{
-		internal const string Read = "API.Read";
-		internal const string Write = "API.Write";
-		internal const string Admin = "API.Admin";
+		internal const string Player = "API.Player";
+		internal const string Creator = "API.Creator";
 	}
 }

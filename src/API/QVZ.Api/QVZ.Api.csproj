@@ -9,15 +9,11 @@
 		<DocumentationFile>QVZ.Api.xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Content Remove="stylecop.json" />
-	</ItemGroup>
-	<ItemGroup>
-	  <AdditionalFiles Include="stylecop.json" />
+		<AdditionalFiles Include="..\..\..\stylecop.json" Link="stylecop.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="3.1.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -32,7 +28,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\QVZ.API.Shared\QVZ.API.Shared.csproj" />
 		<ProjectReference Include="..\QVZ.DAL\QVZ.DAL.csproj" />
+		<ProjectReference Include="..\QVZ.Integrations.Azure.AzureAD\QVZ.Integrations.Azure.AzureAD.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Controllers\" />
 	</ItemGroup>
 
 </Project>

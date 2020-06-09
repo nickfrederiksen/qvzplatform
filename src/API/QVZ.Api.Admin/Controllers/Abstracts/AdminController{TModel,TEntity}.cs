@@ -2,7 +2,7 @@
 
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using QVZ.Api.Controllers.Abstracts;
+using QVZ.API.Shared.Controllers;
 using QVZ.DAL;
 
 namespace QVZ.Api.Admin.Controllers.Abstracts

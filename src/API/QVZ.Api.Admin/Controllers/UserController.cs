@@ -3,18 +3,15 @@
 using System;
 using System.Linq;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QVZ.Api.Admin.Controllers.Abstracts;
 using QVZ.Api.Admin.Models;
-using QVZ.Api.Constants.Authorization;
 using QVZ.DAL;
 using QVZ.DAL.Entities;
 
 namespace QVZ.Api.Admin.Controllers
 {
-	[Route("[area]/api/users")]
-	[Authorize(Scopes.Admin)]
+	[Route("api/users")]
 	public class UserController : AdminController<UserModel, User>
 	{
 		private readonly IDatabaseContext databaseContext;

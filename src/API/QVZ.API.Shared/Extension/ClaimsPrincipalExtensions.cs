@@ -4,7 +4,7 @@
 	{
 		public static string GetObjectIdentifier(this ClaimsPrincipal user)
 		{
-			var objectIdentifier = user.FindFirstValue("http://schemas.microsoft.com/identity/claims/objectidentifier");
+			var objectIdentifier = user.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 			return objectIdentifier;
 		}
 	}

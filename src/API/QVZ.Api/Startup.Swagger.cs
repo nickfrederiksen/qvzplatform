@@ -41,19 +41,16 @@ namespace QVZ.Api
 				var clientId = this.Configuration.GetSection("AzureAd:ClientId").Value;
 				var authority = $"{instance}{tenant}/oauth2/v2.0";
 
-				var adminScope = $"api://{clientId}/{Scopes.Admin}";
-				var readScope = $"api://{clientId}/{Scopes.Read}";
-				var writeScope = $"api://{clientId}/{Scopes.Write}";
+				var readScope = $"api://{clientId}/{Scopes.Player}";
+				var writeScope = $"api://{clientId}/{Scopes.Creator}";
 
 				var scopes = new string[]
 						{
-							adminScope,
 							readScope,
 							writeScope,
 						};
 
-				//AddBearerSecurity(c, scopes);
-				AddOAuth2Security(c, authority, adminScope);
+				AddOAuth2Security(c, authority, readScope, writeScope);
 
 				c.AddSecurityRequirement(new OpenApiSecurityRequirement()
 				{
@@ -117,7 +114,7 @@ namespace QVZ.Api
 			});
 		}
 
-		private static void AddOAuth2Security(SwaggerGenOptions c, string authority, string adminScope)
+		private static void AddOAuth2Security(SwaggerGenOptions c, string authority, string readScope, string writeScope)
 		{
 			OpenApiSecurityScheme oauthScheme = new OpenApiSecurityScheme()
 			{
@@ -130,7 +127,8 @@ namespace QVZ.Api
 						AuthorizationUrl = new Uri($"{authority}/authorize"),
 						Scopes = new Dictionary<string, string>()
 							{
-								{ adminScope, "Admin access" },
+								{ readScope, "Read access" },
+								{ writeScope, "Write access" },
 							},
 					},
 				},

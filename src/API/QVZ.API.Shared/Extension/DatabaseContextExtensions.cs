@@ -5,7 +5,7 @@ using QVZ.DAL.Entities.Interfaces;
 
 namespace QVZ.DAL
 {
-	internal static class DatabaseContextExtensions
+	public static class DatabaseContextExtensions
 	{
 		public static IQueryable<TEntity> GetUserQuery<TEntity>(this IDatabaseContext databaseContext, ClaimsPrincipal user)
 			where TEntity : class, IUserOwned

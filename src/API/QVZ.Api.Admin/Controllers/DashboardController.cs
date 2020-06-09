@@ -3,20 +3,15 @@
 using System;
 using System.Linq;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QVZ.Api.Admin.Controllers.Abstracts;
 using QVZ.Api.Admin.Models;
-using QVZ.Api.Constants.Authorization;
 using QVZ.DAL;
-using QVZ.DAL.Entities;
 using QVZ.DAL.Entities.Dashboards;
 
 namespace QVZ.Api.Admin.Controllers
 {
-	[Area("admin")]
-	[Route("[area]/api/dashboards")]
-	[Authorize(Scopes.Admin)]
+	[Route("api/dashboards")]
 	public class DashboardController : AdminController<DashboardModel, Dashboard>
 	{
 		private readonly IEditableDatabaseContext databaseContext;

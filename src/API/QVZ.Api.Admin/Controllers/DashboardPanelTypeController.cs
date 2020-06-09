@@ -1,24 +1,15 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using QVZ.Api.Admin.Controllers.Abstracts;
 using QVZ.Api.Admin.Models;
-using QVZ.Api.BusinessLogic.ActionFilters;
-using QVZ.Api.Constants.Authorization;
 using QVZ.DAL;
-using QVZ.DAL.Entities;
 using QVZ.DAL.Entities.Dashboards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QVZ.Api.Admin.Controllers
 {
-	[Area("admin")]
-	[Route("[area]/api/dashboardtypes")]
-	[Authorize(Scopes.Admin)]
+	[Route("api/dashboardtypes")]
 	public class DashboardPanelTypeController : AdminController<DashboardPanelTypeModel, DashboardPanelType>
 	{
 		private readonly IEditableDatabaseContext databaseContext;

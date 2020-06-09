@@ -66,7 +66,7 @@ namespace QVZ.Api
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers()
-				.RequireAuthorization(new AuthorizeAttribute(Scopes.Read));
+				.RequireAuthorization(new AuthorizeAttribute(Scopes.Player));
 			});
 
 			this.SetupSwaggerUi(app, env);

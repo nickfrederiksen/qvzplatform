@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using QVZ.DAL;
 using System;
 
-namespace QVZ.Api.BusinessLogic.ActionFilters.Abstracts
+namespace QVZ.API.Shared.ActionFilters
 {
-	internal abstract class EntityFilterAttribute : ActionFilterAttribute
+	public abstract class EntityFilterAttribute : ActionFilterAttribute
 	{
 		public EntityFilterAttribute(string routeKey)
 		{
