@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Encodings.Web;
 using Microsoft.EntityFrameworkCore;
 using QVZ.DAL.Entities;
+using QVZ.DAL.Entities.Abstracts;
 using QVZ.DAL.Entities.Interfaces;
 
 namespace QVZ.DAL
@@ -19,7 +21,23 @@ namespace QVZ.DAL
 			where TEntity : class, IUserOwned
 		{
 			var userId = user.GetObjectIdentifier();
-			return query.Where(e => e.User.ObjectId == userId).Include(u => u.User);
+
+			if (typeof(UserManagedEntity).IsAssignableFrom(typeof(TEntity)))
+			{
+				query = query
+					.Include(nameof(UserManagedEntity.CreatedBy))
+					.Include(nameof(UserManagedEntity.UpdatedBy));
+			}
+
+			return query
+				.Where(e => e.User.ObjectId == userId)
+				.Include(u => u.User);
+		}
+
+		public static IQueryable<TEntity> GetUserManagedQuery<TEntity>(this IQueryable<TEntity> query)
+			where TEntity : UserManagedEntity
+		{
+			return query.Include(e => e.CreatedBy).Include(e => e.UpdatedBy);
 		}
 
 		public static User GetUserReference(this IDatabaseContext databaseContext, ClaimsPrincipal principal)

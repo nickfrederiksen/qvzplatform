@@ -4,38 +4,43 @@
         <name>QVZ.Api</name>
     </assembly>
     <members>
-        <member name="T:QVZ.Api.Controllers.UserQuizController">
+        <member name="P:QVZ.Api.ActionFilters.QuizFilterAttribute.ValidateOwnership">
+            <summary>
+            Gets or sets a value indicating whether to validate user ownership of the quiz or not.
+            </summary>
+        </member>
+        <member name="T:QVZ.Api.Controllers.Quizes.UserQuizController">
             <summary>
             Manages all user owned quizes.
             </summary>
         </member>
-        <member name="M:QVZ.Api.Controllers.UserQuizController.#ctor(QVZ.DAL.IEditableDatabaseContext,AutoMapper.IMapper)">
+        <member name="M:QVZ.Api.Controllers.Quizes.UserQuizController.#ctor(QVZ.DAL.IEditableDatabaseContext,AutoMapper.IMapper)">
             <summary>
-            Initializes a new instance of the <see cref="T:QVZ.Api.Controllers.UserQuizController"/> class.
+            Initializes a new instance of the <see cref="T:QVZ.Api.Controllers.Quizes.UserQuizController"/> class.
             </summary>
             <inheritdoc cref="T:QVZ.Api.Shared.Controllers.QVZUserApiController`2"/>
         </member>
-        <member name="M:QVZ.Api.Controllers.UserQuizController.GetAll">
+        <member name="M:QVZ.Api.Controllers.Quizes.UserQuizController.GetAll">
             <summary>
             Gets all users own quizes.
             </summary>
             <returns>A list of quizes owned by the user.</returns>
         </member>
-        <member name="M:QVZ.Api.Controllers.UserQuizController.GetSingle(System.Guid)">
+        <member name="M:QVZ.Api.Controllers.Quizes.UserQuizController.GetSingle(System.Guid)">
             <summary>
             Gets a single quiz, owned by the user.
             </summary>
             <param name="id">Id of the quiz.</param>
             <returns>The quiz, or not found.</returns>
         </member>
-        <member name="M:QVZ.Api.Controllers.UserQuizController.Create(QVZ.Api.Models.QuizModel)">
+        <member name="M:QVZ.Api.Controllers.Quizes.UserQuizController.Create(QVZ.Api.Models.QuizModel)">
             <summary>
             Creates a new quiz and sets the owner to the current user.
             </summary>
             <param name="model">Quiz to create.</param>
             <returns>The newly created quiz.</returns>
         </member>
-        <member name="M:QVZ.Api.Controllers.UserQuizController.Update(System.Guid,QVZ.Api.Models.QuizModel)">
+        <member name="M:QVZ.Api.Controllers.Quizes.UserQuizController.Update(System.Guid,QVZ.Api.Models.QuizModel)">
             <summary>
             Updates a single quiz, that the user owns.
             </summary>
@@ -43,7 +48,7 @@
             <param name="model">Updated values.</param>
             <returns>No content og not found.</returns>
         </member>
-        <member name="M:QVZ.Api.Controllers.UserQuizController.Delete(System.Guid)">
+        <member name="M:QVZ.Api.Controllers.Quizes.UserQuizController.Delete(System.Guid)">
             <summary>
             Deletes a single quiz that the user owns.
             </summary>

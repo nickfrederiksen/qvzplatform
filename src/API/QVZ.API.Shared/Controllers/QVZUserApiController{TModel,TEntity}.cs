@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using QVZ.Api.Shared.Models;
 using QVZ.DAL;
 using QVZ.DAL.Entities;

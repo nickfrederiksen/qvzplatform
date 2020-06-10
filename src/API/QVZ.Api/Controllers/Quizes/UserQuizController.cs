@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +9,12 @@ using QVZ.Api.Shared.Controllers;
 using QVZ.DAL;
 using QVZ.DAL.Entities.Quizes;
 
-namespace QVZ.Api.Controllers
+namespace QVZ.Api.Controllers.Quizes
 {
 	/// <summary>
 	/// Manages all user owned quizes.
 	/// </summary>
-	[Route("api/users/me/quiz")]
+	[Route("api/users/me/quizes")]
 	public class UserQuizController : QVZUserApiController<QuizModel, Quiz>
 	{
 		private readonly IEditableDatabaseContext databaseContext;
@@ -52,7 +48,7 @@ namespace QVZ.Api.Controllers
 		/// </summary>
 		/// <param name="id">Id of the quiz.</param>
 		/// <returns>The quiz, or not found.</returns>
-		[HttpGet("{id}", Name = "getSingleMine")]
+		[HttpGet("{id}", Name = "getSingleUserQuiz")]
 		[ProducesResponseType(typeof(QuizModel), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public IActionResult GetSingle(Guid id)
@@ -96,7 +92,7 @@ namespace QVZ.Api.Controllers
 
 			model = this.GetModel(entity);
 
-			return this.CreatedAtRoute("getSingleMine", new { id = entity.Guid }, model);
+			return this.CreatedAtRoute("getSingleUserQuiz", new { id = entity.Guid }, model);
 		}
 
 		/// <summary>
@@ -127,8 +123,6 @@ namespace QVZ.Api.Controllers
 			entity = this.UpdateEntity(model, entity);
 
 			this.databaseContext.SaveChanges(this.User);
-
-			model = this.GetModel(entity);
 
 			return this.NoContent();
 		}

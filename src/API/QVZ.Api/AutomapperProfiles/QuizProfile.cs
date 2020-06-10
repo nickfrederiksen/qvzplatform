@@ -19,9 +19,7 @@ namespace QVZ.Api.AutomapperProfiles
 			this.CreateMap<Quiz, QuizModel>()
 				.ForMember(m => m.Date, o => o.MapFrom(e => e.Date))
 				.ForMember(m => m.Name, o => o.MapFrom(e => e.Name))
-				.ReverseMap()
-				.ForMember(e => e.Date, o => o.MapFrom(m => m.Date))
-				.ForMember(e => e.Name, o => o.MapFrom(m => m.Name));
+				.ReverseMap();
 		}
 	}
 }

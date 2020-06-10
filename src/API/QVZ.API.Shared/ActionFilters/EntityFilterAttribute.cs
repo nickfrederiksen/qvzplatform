@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +23,7 @@ namespace QVZ.Api.Shared.ActionFilters
 			if (success)
 			{
 				var dbContext = context.HttpContext.RequestServices.GetRequiredService<IDatabaseContext>();
-				var exists = this.EntityExists(context.RouteData.Values, dbContext, value);
+				var exists = this.EntityExists(context, dbContext, value);
 				if (!exists)
 				{
 					context.Result = new NotFoundResult();
@@ -32,7 +33,7 @@ namespace QVZ.Api.Shared.ActionFilters
 			base.OnActionExecuting(context);
 		}
 
-		protected abstract bool EntityExists(RouteValueDictionary routeValues, IDatabaseContext databaseContext, Guid routeValue);
+		protected abstract bool EntityExists(ActionExecutingContext context, IDatabaseContext databaseContext, Guid routeValue);
 
 		protected virtual (bool success, Guid value) TryGetRouteValue(RouteValueDictionary routeValues, string key)
 		{

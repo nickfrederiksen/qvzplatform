@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using QVZ.Api.Shared.ActionFilters;
 using QVZ.DAL;
@@ -18,7 +19,7 @@ namespace QVZ.Api.Admin.ActionFilters
 		{
 		}
 
-		protected override bool EntityExists(RouteValueDictionary routeValues, IDatabaseContext databaseContext, Guid routeValue)
+		protected override bool EntityExists(ActionExecutingContext context, IDatabaseContext databaseContext, Guid routeValue)
 		{
 			return databaseContext.Dashboards.Any(i => i.Guid == routeValue);
 		}
