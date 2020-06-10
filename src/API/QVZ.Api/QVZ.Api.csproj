@@ -28,13 +28,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\QVZ.API.Shared\QVZ.API.Shared.csproj" />
+		<ProjectReference Include="..\QVZ.API.Shared\QVZ.Api.Shared.csproj" />
 		<ProjectReference Include="..\QVZ.DAL\QVZ.DAL.csproj" />
 		<ProjectReference Include="..\QVZ.Integrations.Azure.AzureAD\QVZ.Integrations.Azure.AzureAD.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Controllers\" />
 	</ItemGroup>
 
 </Project>

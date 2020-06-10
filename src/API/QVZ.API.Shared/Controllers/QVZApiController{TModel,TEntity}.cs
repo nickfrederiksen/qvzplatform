@@ -3,18 +3,29 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QVZ.DAL;
+using QVZ.DAL.Entities.Interfaces;
 
-namespace QVZ.API.Shared.Controllers
+namespace QVZ.Api.Shared.Controllers
 {
+	/// <summary>
+	/// Main API controller for the QVZ API's.
+	/// </summary>
+	/// <typeparam name="TModel">DTO model type.</typeparam>
+	/// <typeparam name="TEntity">Entity type.</typeparam>
 	[ApiController]
-	public abstract class ApiController<TModel, TEntity> : ControllerBase
+	public abstract class QVZApiController<TModel, TEntity> : ControllerBase
 		   where TModel : class, new()
 		   where TEntity : class
 	{
 		private readonly IDatabaseContext databaseContext;
 		private readonly IMapper mapper;
 
-		public ApiController(IDatabaseContext databaseContext, IMapper mapper)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="QVZApiController{TModel, TEntity}"/> class.
+		/// </summary>
+		/// <param name="databaseContext">Instance of the database context.</param>
+		/// <param name="mapper">Instance of the Automapper mapper.</param>
+		public QVZApiController(IDatabaseContext databaseContext, IMapper mapper)
 		{
 			this.DbSet = databaseContext.Set<TEntity>();
 			this.databaseContext = databaseContext;
@@ -28,7 +39,7 @@ namespace QVZ.API.Shared.Controllers
 			return this.mapper.Map<TEntity>(model);
 		}
 
-		protected TEntity GetEntity(TModel model, TEntity entity)
+		protected TEntity UpdateEntity(TModel model, TEntity entity)
 		{
 			return this.mapper.Map(model, entity);
 		}

@@ -2,13 +2,12 @@
 
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using QVZ.API.Shared.Controllers;
+using QVZ.Api.Shared.Controllers;
 using QVZ.DAL;
 
 namespace QVZ.Api.Admin.Controllers.Abstracts
 {
-	[Area("admin")]
-	public class AdminController<TModel, TEntity> : ApiController<TModel, TEntity>
+	public class AdminController<TModel, TEntity> : QVZApiController<TModel, TEntity>
 		where TModel : class, new()
 		where TEntity : class
 	{

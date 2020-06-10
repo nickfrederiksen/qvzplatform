@@ -23,7 +23,5 @@ namespace QVZ.DAL.Entities.Quizes
 		public virtual User User { get; set; }
 
 		public ICollection<Round> Rounds { get; set; } = new HashSet<Round>();
-
-		public ICollection<QuizOrganizationReference> OrganizationReferences { get; set; } = new HashSet<QuizOrganizationReference>();
 	}
 }

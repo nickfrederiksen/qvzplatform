@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{886746BD-EA0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{A6B6EB41-769C-4569-A691-1BBBAA80C1DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QVZ.API.Shared", "QVZ.API.Shared\QVZ.API.Shared.csproj", "{21C45968-EFFB-4B9E-9568-277BEDA82EC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QVZ.Api.Shared", "QVZ.API.Shared\QVZ.Api.Shared.csproj", "{21C45968-EFFB-4B9E-9568-277BEDA82EC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

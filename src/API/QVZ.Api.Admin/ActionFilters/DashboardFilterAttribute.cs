@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Routing;
-using QVZ.API.Shared.ActionFilters;
+using QVZ.Api.Shared.ActionFilters;
 using QVZ.DAL;
 
 namespace QVZ.Api.Admin.ActionFilters

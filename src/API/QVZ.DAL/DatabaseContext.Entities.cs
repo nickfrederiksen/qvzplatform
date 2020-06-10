@@ -22,11 +22,6 @@ namespace QVZ.DAL
 			organizationUserReferenceEntity.HasKey(r => new { r.UserId, r.OrganizationId });
 			organizationUserReferenceEntity.HasOne(r => r.Organization).WithMany(o => o.UserReferences).OnDelete(DeleteBehavior.Cascade);
 			organizationUserReferenceEntity.HasOne(r => r.User).WithMany().OnDelete(DeleteBehavior.Cascade);
-
-			var quizOrganizationReferenceEntity = modelBuilder.Entity<QuizOrganizationReference>();
-			quizOrganizationReferenceEntity.HasKey(r => new { r.QuizId, r.OrganizationId });
-			quizOrganizationReferenceEntity.HasOne(r => r.Organization).WithMany(o => o.QuizReferences).OnDelete(DeleteBehavior.Cascade);
-			quizOrganizationReferenceEntity.HasOne(r => r.Quiz).WithMany(q => q.OrganizationReferences).OnDelete(DeleteBehavior.Cascade);
 		}
 
 		private void SetupOrganizationalEntities(ModelBuilder modelBuilder)
@@ -100,8 +95,8 @@ namespace QVZ.DAL
 			where TEntity : UserManagedEntity
 		{
 			var entity = this.SetUpdateableEntityDefaults<TEntity>(modelBuilder);
-			entity.HasOne(e => e.UserCreatedBy).WithMany().OnDelete(DeleteBehavior.Restrict);
-			entity.HasOne(e => e.UserUpdatedBy).WithMany().OnDelete(DeleteBehavior.Restrict);
+			entity.HasOne(e => e.CreatedBy).WithMany().OnDelete(DeleteBehavior.Restrict);
+			entity.HasOne(e => e.UpdatedBy).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			return entity;
 		}

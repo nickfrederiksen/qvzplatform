@@ -4,6 +4,72 @@
         <name>QVZ.Api</name>
     </assembly>
     <members>
+        <member name="T:QVZ.Api.Controllers.UserQuizController">
+            <summary>
+            Manages all user owned quizes.
+            </summary>
+        </member>
+        <member name="M:QVZ.Api.Controllers.UserQuizController.#ctor(QVZ.DAL.IEditableDatabaseContext,AutoMapper.IMapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:QVZ.Api.Controllers.UserQuizController"/> class.
+            </summary>
+            <inheritdoc cref="T:QVZ.Api.Shared.Controllers.QVZUserApiController`2"/>
+        </member>
+        <member name="M:QVZ.Api.Controllers.UserQuizController.GetAll">
+            <summary>
+            Gets all users own quizes.
+            </summary>
+            <returns>A list of quizes owned by the user.</returns>
+        </member>
+        <member name="M:QVZ.Api.Controllers.UserQuizController.GetSingle(System.Guid)">
+            <summary>
+            Gets a single quiz, owned by the user.
+            </summary>
+            <param name="id">Id of the quiz.</param>
+            <returns>The quiz, or not found.</returns>
+        </member>
+        <member name="M:QVZ.Api.Controllers.UserQuizController.Create(QVZ.Api.Models.QuizModel)">
+            <summary>
+            Creates a new quiz and sets the owner to the current user.
+            </summary>
+            <param name="model">Quiz to create.</param>
+            <returns>The newly created quiz.</returns>
+        </member>
+        <member name="M:QVZ.Api.Controllers.UserQuizController.Update(System.Guid,QVZ.Api.Models.QuizModel)">
+            <summary>
+            Updates a single quiz, that the user owns.
+            </summary>
+            <param name="id">Id of the quiz to update.</param>
+            <param name="model">Updated values.</param>
+            <returns>No content og not found.</returns>
+        </member>
+        <member name="M:QVZ.Api.Controllers.UserQuizController.Delete(System.Guid)">
+            <summary>
+            Deletes a single quiz that the user owns.
+            </summary>
+            <param name="id">Id of the quiz to delete.</param>
+            <returns>No content or not found.</returns>
+        </member>
+        <member name="T:QVZ.Api.Models.QuizModel">
+            <summary>
+            Represents a quiz.
+            </summary>
+        </member>
+        <member name="P:QVZ.Api.Models.QuizModel.Name">
+            <summary>
+            Gets or sets the quiz name. Must be unique for the user.
+            </summary>
+        </member>
+        <member name="P:QVZ.Api.Models.QuizModel.Date">
+            <summary>
+            Gets or sets the quiz date.
+            </summary>
+        </member>
+        <member name="P:QVZ.Api.Models.QuizModel.UserId">
+            <summary>
+            Gets the id of the user that owns the quiz.
+            </summary>
+        </member>
         <member name="M:QVZ.Api.Startup.SetupSwaggerService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Sets up the Swagger services.

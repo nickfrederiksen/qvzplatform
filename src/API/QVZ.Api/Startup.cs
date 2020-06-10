@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using QVZ.Api.Constants.Authorization;
+using QVZ.Api.Shared.AutomapperProfiles;
 using QVZ.DAL;
 
 namespace QVZ.Api
@@ -33,6 +34,7 @@ namespace QVZ.Api
 				{
 					options.ConstructServicesUsing(provider.GetService);
 				},
+				typeof(BaseProfiles).Assembly,
 				this.GetType().Assembly);
 
 			services.AddDatabaseContext(this.Configuration.GetConnectionString("QVZDB"));
@@ -66,7 +68,7 @@ namespace QVZ.Api
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers()
-				.RequireAuthorization(new AuthorizeAttribute(Scopes.Player));
+				.RequireAuthorization();
 			});
 
 			this.SetupSwaggerUi(app, env);

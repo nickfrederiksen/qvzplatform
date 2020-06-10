@@ -79,7 +79,7 @@ namespace QVZ.Api.Admin.Controllers
 				return this.Conflict();
 			}
 
-			entity = this.GetEntity(model, entity);
+			entity = this.UpdateEntity(model, entity);
 
 			this.databaseContext.SaveChanges(this.User);
 

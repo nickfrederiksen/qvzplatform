@@ -4,14 +4,14 @@ namespace QVZ.DAL.Entities.Abstracts
 {
 	public abstract class UserManagedEntity : UpdateableEntity
 	{
-		public int UserCreatedById { get; set; }
+		public int CreatedById { get; set; }
 
-		[ForeignKey(nameof(UserCreatedById))]
-		public virtual User UserCreatedBy { get; set; }
+		[ForeignKey(nameof(CreatedById))]
+		public virtual User CreatedBy { get; set; }
 
-		public int UserUpdatedById { get; set; }
+		public int UpdatedById { get; set; }
 
-		[ForeignKey(nameof(UserUpdatedById))]
-		public virtual User UserUpdatedBy { get; set; }
+		[ForeignKey(nameof(UpdatedById))]
+		public virtual User UpdatedBy { get; set; }
 	}
 }

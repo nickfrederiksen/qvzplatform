@@ -1,9 +1,4 @@
-﻿using QVZ.Api.Admin.Models.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using QVZ.Api.Shared.Models;
 
 namespace QVZ.Api.Admin.Models
 {

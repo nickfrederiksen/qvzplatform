@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using QVZ.DAL;
 using System;
 
-namespace QVZ.API.Shared.ActionFilters
+namespace QVZ.Api.Shared.ActionFilters
 {
 	public abstract class EntityFilterAttribute : ActionFilterAttribute
 	{

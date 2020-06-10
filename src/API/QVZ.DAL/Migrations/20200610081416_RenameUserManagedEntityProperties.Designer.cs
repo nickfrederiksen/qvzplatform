@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QVZ.DAL;
 
 namespace QVZ.DAL.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200610081416_RenameUserManagedEntityProperties")]
+    partial class RenameUserManagedEntityProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,18 +161,18 @@ namespace QVZ.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2020, 6, 10, 8, 55, 59, 406, DateTimeKind.Utc).AddTicks(7304),
+                            CreatedDate = new DateTime(2020, 6, 10, 8, 14, 15, 937, DateTimeKind.Utc).AddTicks(9962),
                             Guid = new Guid("89dbc8b3-3c47-4734-a45d-ae6348982fd5"),
                             Name = "Organizations",
-                            UpdatedDate = new DateTime(2020, 6, 10, 8, 55, 59, 406, DateTimeKind.Utc).AddTicks(7304)
+                            UpdatedDate = new DateTime(2020, 6, 10, 8, 14, 15, 937, DateTimeKind.Utc).AddTicks(9962)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2020, 6, 10, 8, 55, 59, 406, DateTimeKind.Utc).AddTicks(7304),
+                            CreatedDate = new DateTime(2020, 6, 10, 8, 14, 15, 937, DateTimeKind.Utc).AddTicks(9962),
                             Guid = new Guid("daa76c7a-02a4-4d4e-8f31-491cf850b996"),
                             Name = "Users",
-                            UpdatedDate = new DateTime(2020, 6, 10, 8, 55, 59, 406, DateTimeKind.Utc).AddTicks(7304)
+                            UpdatedDate = new DateTime(2020, 6, 10, 8, 14, 15, 937, DateTimeKind.Utc).AddTicks(9962)
                         });
                 });
 
@@ -468,6 +470,21 @@ namespace QVZ.DAL.Migrations
                     b.ToTable("OrganizationUserReferences");
                 });
 
+            modelBuilder.Entity("QVZ.DAL.Entities.ReferenceTables.QuizOrganizationReference", b =>
+                {
+                    b.Property<int>("QuizId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("QuizId", "OrganizationId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("QuizOrganizationReferences");
+                });
+
             modelBuilder.Entity("QVZ.DAL.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -666,6 +683,21 @@ namespace QVZ.DAL.Migrations
                     b.HasOne("QVZ.DAL.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("QVZ.DAL.Entities.ReferenceTables.QuizOrganizationReference", b =>
+                {
+                    b.HasOne("QVZ.DAL.Entities.Organization", "Organization")
+                        .WithMany("QuizReferences")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QVZ.DAL.Entities.Quizes.Quiz", "Quiz")
+                        .WithMany("OrganizationReferences")
+                        .HasForeignKey("QuizId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

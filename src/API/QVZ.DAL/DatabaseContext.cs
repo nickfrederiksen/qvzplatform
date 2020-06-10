@@ -40,8 +40,6 @@ namespace QVZ.DAL
 
 		public DbSet<Round> Rounds { get; set; }
 
-		public DbSet<QuizOrganizationReference> QuizOrganizationReferences { get; set; }
-
 		public int SaveChanges(string userObjectId)
 		{
 			User user = GetUserReference(userObjectId);
@@ -100,10 +98,10 @@ namespace QVZ.DAL
 		{
 			if (entity is UserManagedEntity userManagedEntity)
 			{
-				userManagedEntity.UserUpdatedBy = user;
+				userManagedEntity.UpdatedBy = user;
 				if (entry.State == EntityState.Added)
 				{
-					userManagedEntity.UserCreatedBy = userManagedEntity.UserUpdatedBy;
+					userManagedEntity.CreatedBy = userManagedEntity.UpdatedBy;
 				}
 			}
 		}

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QVZ.Api.Shared</name>
+    </assembly>
+    <members>
+        <member name="T:QVZ.Api.Shared.Controllers.QVZApiController`2">
+            <summary>
+            Main API controller for the QVZ API's.
+            </summary>
+            <typeparam name="TModel">DTO model type.</typeparam>
+            <typeparam name="TEntity">Entity type.</typeparam>
+        </member>
+        <member name="M:QVZ.Api.Shared.Controllers.QVZApiController`2.#ctor(QVZ.DAL.IDatabaseContext,AutoMapper.IMapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:QVZ.Api.Shared.Controllers.QVZApiController`2"/> class.
+            </summary>
+            <param name="databaseContext">Instance of the database context.</param>
+            <param name="mapper">Instance of the Automapper mapper.</param>
+        </member>
+        <member name="T:QVZ.Api.Shared.Controllers.QVZUserApiController`2">
+            <summary>
+            Adds user queries for <see cref="T:QVZ.DAL.Entities.Interfaces.IUserOwned"/> entities and <see cref="T:QVZ.Api.Shared.Models.IUserOwnedModel"/> models to <see cref="T:QVZ.Api.Shared.Controllers.QVZApiController`2"/>.
+            </summary>
+            <inheritdoc/>
+        </member>
+        <member name="M:QVZ.Api.Shared.Controllers.QVZUserApiController`2.#ctor(QVZ.DAL.IDatabaseContext,AutoMapper.IMapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:QVZ.Api.Shared.Controllers.QVZUserApiController`2"/> class.
+            </summary>
+            <inheritdoc cref="T:QVZ.Api.Shared.Controllers.QVZApiController`2"/>
+        </member>
+    </members>
+</doc>

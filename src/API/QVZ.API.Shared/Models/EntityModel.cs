@@ -3,7 +3,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace QVZ.Api.Admin.Models.Abstracts
+namespace QVZ.Api.Shared.Models
 {
 	public abstract class EntityModel
     {

@@ -15,7 +15,5 @@ namespace QVZ.DAL.Entities
 		public virtual ICollection<OrganizationUserReference> UserReferences { get; set; } = new HashSet<OrganizationUserReference>();
 
 		public ICollection<Answer> Answers { get; set; } = new HashSet<Answer>();
-
-		public ICollection<QuizOrganizationReference> QuizReferences { get; set; } = new HashSet<QuizOrganizationReference>();
 	}
 }

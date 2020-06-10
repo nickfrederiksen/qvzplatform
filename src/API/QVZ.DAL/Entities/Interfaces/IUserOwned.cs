@@ -2,6 +2,8 @@
 {
 	public interface IUserOwned
 	{
-		User User { get; }
+		int UserId { get; set; }
+
+		User User { get; set; }
 	}
 }
