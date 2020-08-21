@@ -4,7 +4,7 @@ using QVZ.DAL.Entities.Quizes;
 
 namespace QVZ.Api.AutomapperProfiles
 {
-	public class RoundProfile : Profile
+	internal class RoundProfile : Profile
 	{
 		public RoundProfile()
 		{

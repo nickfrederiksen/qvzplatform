@@ -11,8 +11,6 @@ namespace QVZ.DAL.Entities.Quizes
 		[Required(AllowEmptyStrings = false)]
 		public string Name { get; set; }
 
-		public Guid TypeId { get; set; }
-
 		public ICollection<Question> Questions { get; set; } = new HashSet<Question>();
 	}
 }

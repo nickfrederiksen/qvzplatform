@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using QVZ.Api.ActionFilters;
 using QVZ.Api.Models;
 using QVZ.Api.Shared.Controllers;
+using QVZ.Api.Shared.Models;
 using QVZ.DAL;
 using QVZ.DAL.Entities.Quizes;
 
@@ -24,6 +28,8 @@ namespace QVZ.Api.Controllers.Rounds
 		}
 
 		[HttpGet]
+		[ProducesResponseType(typeof(IEnumerable<RoundModel>), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public IActionResult GetAll(Guid quizId)
 		{
 			var rounds = GetQuery(quizId);
@@ -34,6 +40,8 @@ namespace QVZ.Api.Controllers.Rounds
 		}
 
 		[HttpGet("{id}", Name = "singleUserRound")]
+		[ProducesResponseType(typeof(RoundModel), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public IActionResult GetSingle(Guid quizId, Guid id)
 		{
 			var round = this.GetQuery(quizId).SingleOrDefault(r => r.Guid == id);
@@ -49,6 +57,10 @@ namespace QVZ.Api.Controllers.Rounds
 		}
 
 		[HttpPost]
+		[ProducesResponseType(typeof(RoundModel), StatusCodes.Status201Created)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
+		[ProducesResponseType(typeof(IBadRequestModel), StatusCodes.Status409Conflict)]
 		public IActionResult Create(Guid quizId, RoundModel model)
 		{
 			var exists = this.GetQuery(quizId).Any(r => r.Name == model.Name);
@@ -72,6 +84,10 @@ namespace QVZ.Api.Controllers.Rounds
 		}
 
 		[HttpPut("{id}")]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
+		[ProducesResponseType(typeof(IBadRequestModel), StatusCodes.Status409Conflict)]
 		public IActionResult Update(Guid quizId, Guid id, RoundModel model)
 		{
 			IQueryable<Round> query = this.GetQuery(quizId);
@@ -97,6 +113,9 @@ namespace QVZ.Api.Controllers.Rounds
 		}
 
 		[HttpDelete("{id}")]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(IBadRequestModel), StatusCodes.Status409Conflict)]
 		public IActionResult Delete(Guid quizId, Guid id)
 		{
 			var entity = this.GetQuery(quizId).SingleOrDefault(r => r.Guid == id);

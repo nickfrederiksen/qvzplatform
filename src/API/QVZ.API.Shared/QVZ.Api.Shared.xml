@@ -30,5 +30,10 @@
             </summary>
             <inheritdoc cref="T:QVZ.Api.Shared.Controllers.QVZApiController`2"/>
         </member>
+        <member name="T:QVZ.Api.Shared.Models.IBadRequestModel">
+            <summary>
+            Key value pair of validation errors.
+            </summary>
+        </member>
     </members>
 </doc>

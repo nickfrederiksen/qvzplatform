@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace QVZ.Api.Shared.Models
 {
-	public class UserManagedModel : UpdateableModel
+	public class UserManagedModel : UpdateableModel, IUserManagedModel
 	{
 		[BindNever]
 		public Guid CreatedById { get; internal set; }

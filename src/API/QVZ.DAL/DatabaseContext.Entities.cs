@@ -16,6 +16,7 @@ namespace QVZ.DAL
 {
 	internal partial class DatabaseContext
 	{
+
 		private void SetupReferenceEntities(ModelBuilder modelBuilder)
 		{
 			var organizationUserReferenceEntity = modelBuilder.Entity<OrganizationUserReference>();
@@ -56,14 +57,40 @@ namespace QVZ.DAL
 			questionEntity.HasOne(q => q.Type).WithMany(t => t.Questions).OnDelete(DeleteBehavior.Restrict);
 			questionEntity.HasOne(q => q.Round).WithMany(t => t.Questions).OnDelete(DeleteBehavior.Cascade);
 
-			this.SetEntityDefaults<QuestionType>(modelBuilder)
-				.HasMany(e => e.Questions).WithOne(q => q.Type).OnDelete(DeleteBehavior.Restrict);
+			this.SetupQuestionTypes(modelBuilder);
 
 			var userEntity = this.SetUserManagedEntityDefaults<Quiz>(modelBuilder);
 			this.SetUserOwnedDefaults(userEntity);
 
 			var roundEntity = this.SetUserManagedEntityDefaults<Round>(modelBuilder);
 			roundEntity.HasOne(r => r.Quiz).WithMany(q => q.Rounds).OnDelete(DeleteBehavior.Cascade);
+		}
+		private void SetupQuestionTypes(ModelBuilder modelBuilder)
+		{
+			var typeEntity = this.SetEntityDefaults<QuestionType>(modelBuilder);
+
+			typeEntity.HasMany(e => e.Questions).WithOne(q => q.Type).OnDelete(DeleteBehavior.Restrict);
+
+			DateTime utcNow = DateTime.UtcNow;
+			typeEntity.HasData(
+				new QuestionType()
+				{
+					Id = 1,
+					Guid = new Guid("7396d76a-f778-44cf-97fa-8497db162823"),
+					Name = "Short answer"
+				},
+				new QuestionType()
+				{
+					Id = 2,
+					Guid = new Guid("0739d67c-5c14-4ece-aea1-193349679614"),
+					Name = "Long answer"
+				},
+				new QuestionType()
+				{
+					Id = 3,
+					Guid = new Guid("84901edb-e646-4323-9ac4-0e64b634fbde"),
+					Name = "Multiple short answer"
+				});
 		}
 
 

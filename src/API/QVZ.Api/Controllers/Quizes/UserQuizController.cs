@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using QVZ.Api.Models;
 using QVZ.Api.Shared.Controllers;
+using QVZ.Api.Shared.Models;
 using QVZ.DAL;
 using QVZ.DAL.Entities.Quizes;
 
@@ -34,7 +36,7 @@ namespace QVZ.Api.Controllers.Quizes
 		/// </summary>
 		/// <returns>A list of quizes owned by the user.</returns>
 		[HttpGet]
-		[ProducesResponseType(typeof(QuizModel[]), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(IEnumerable<QuizModel>), StatusCodes.Status200OK)]
 
 		public IActionResult GetAll()
 		{
@@ -72,7 +74,7 @@ namespace QVZ.Api.Controllers.Quizes
 		/// <returns>The newly created quiz.</returns>
 		[HttpPost]
 		[ProducesResponseType(typeof(QuizModel), StatusCodes.Status201Created)]
-		[ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status409Conflict)]
+		[ProducesResponseType(typeof(IBadRequestModel), StatusCodes.Status409Conflict)]
 		public IActionResult Create(QuizModel model)
 		{
 			var isConflict = this.UserQuery.Any(q => q.Name == model.Name);
@@ -104,7 +106,7 @@ namespace QVZ.Api.Controllers.Quizes
 		[HttpPut("{id}")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		[ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status409Conflict)]
+		[ProducesResponseType(typeof(IBadRequestModel), StatusCodes.Status409Conflict)]
 		public IActionResult Update(Guid id, QuizModel model)
 		{
 			var entity = this.UserQuery.SingleOrDefault(q => q.Guid == id);

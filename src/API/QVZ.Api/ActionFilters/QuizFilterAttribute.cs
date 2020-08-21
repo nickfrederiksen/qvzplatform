@@ -9,12 +9,19 @@ namespace QVZ.Api.ActionFilters
 {
 	public class QuizFilterAttribute : EntityFilterAttribute
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="QuizFilterAttribute"/> class.
+		/// </summary>
 		public QuizFilterAttribute()
 			: this("quizId")
 		{
 
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="QuizFilterAttribute"/> class.
+		/// </summary>
+		/// <param name="routeKey">Key from the route that maps to the Quiz id.</param>
 		public QuizFilterAttribute(string routeKey)
 			: base(routeKey)
 		{

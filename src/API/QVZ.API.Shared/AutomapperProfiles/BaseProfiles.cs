@@ -9,7 +9,7 @@ namespace QVZ.Api.Shared.AutomapperProfiles
 	{
 		public BaseProfiles()
 		{
-			this.CreateMap<Entity, EntityModel>()
+			this.CreateMap<Entity, IEntityModel>()
 				  .ForMember(m => m.Id, o => o.MapFrom(e => e.Guid))
 				  .IncludeAllDerived()
 				  .ReverseMap()
@@ -17,8 +17,7 @@ namespace QVZ.Api.Shared.AutomapperProfiles
 				  .ForMember(e => e.Id, o => o.Ignore())
 				  .IncludeAllDerived();
 
-
-			this.CreateMap<UpdateableEntity, UpdateableModel>()
+			this.CreateMap<UpdateableEntity, IUpdateableModel>()
 				  .ForMember(m => m.CreatedDate, o => o.MapFrom(e => e.CreatedDate))
 				  .ForMember(m => m.UpdatedDate, o => o.MapFrom(e => e.UpdatedDate))
 				  .IncludeAllDerived()
@@ -27,8 +26,7 @@ namespace QVZ.Api.Shared.AutomapperProfiles
 				  .ForMember(e => e.UpdatedDate, o => o.Ignore())
 				  .IncludeAllDerived();
 
-
-			this.CreateMap<UserManagedEntity, UserManagedModel>()
+			this.CreateMap<UserManagedEntity, IUserManagedModel>()
 				  .ForMember(m => m.CreatedById, o => o.MapFrom(e => e.CreatedBy.Guid))
 				  .ForMember(m => m.UpdatedById, o => o.MapFrom(e => e.UpdatedBy.Guid))
 				  .IncludeAllDerived()

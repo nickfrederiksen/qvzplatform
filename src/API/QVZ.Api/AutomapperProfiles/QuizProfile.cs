@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using QVZ.Api.Models;
-using QVZ.Api.Shared.Models;
-using QVZ.DAL.Entities.Abstracts;
-using QVZ.DAL.Entities.Interfaces;
 using QVZ.DAL.Entities.Quizes;
 
 namespace QVZ.Api.AutomapperProfiles
 {
-	public class QuizProfile : Profile
+	internal class QuizProfile : Profile
 	{
 		public QuizProfile()
 		{

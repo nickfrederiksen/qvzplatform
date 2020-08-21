@@ -99,6 +99,8 @@ namespace QVZ.Api
 					c.OAuthRealm(clientId);
 				}
 
+				c.RoutePrefix = string.Empty;
+
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{APIName} V1");
 			});
 		}

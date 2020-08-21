@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace QVZ.Api.Shared.Models
 {
-	public abstract class EntityModel
-    {
-        [BindNever]
-        public Guid Id { get; internal set; }
-    }
+	public abstract class EntityModel : IEntityModel
+	{
+		[BindNever]
+		public Guid Id { get; internal set; }
+	}
 }

@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using QVZ.DAL;
-using System;
 
 namespace QVZ.Api.Shared.ActionFilters
 {
@@ -19,7 +18,7 @@ namespace QVZ.Api.Shared.ActionFilters
 
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
-			var (success, value) = this.TryGetRouteValue(context.RouteData.Values, this.RouteKey);
+			var (success, value) = this.TryGetRouteGuidValue(context, this.RouteKey);
 			if (success)
 			{
 				var dbContext = context.HttpContext.RequestServices.GetRequiredService<IDatabaseContext>();
@@ -35,7 +34,12 @@ namespace QVZ.Api.Shared.ActionFilters
 
 		protected abstract bool EntityExists(ActionExecutingContext context, IDatabaseContext databaseContext, Guid routeValue);
 
-		protected virtual (bool success, Guid value) TryGetRouteValue(RouteValueDictionary routeValues, string key)
+		protected virtual (bool success, Guid value) TryGetRouteGuidValue(ActionExecutingContext context, string key)
+		{
+			return this.TryGetRouteGuidValue(context.RouteData.Values, key);
+		}
+
+		protected virtual (bool success, Guid value) TryGetRouteGuidValue(RouteValueDictionary routeValues, string key)
 		{
 			Guid routeValue = default;
 			var success = routeValues.TryGetValue(key, out var keyNumberIdValue) && Guid.TryParse(keyNumberIdValue as string, out routeValue);
