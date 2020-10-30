@@ -13,10 +13,6 @@ export default {
 		port: process.env.port,
 		timing: false,
 		host: process.env.NODE_ENV == 'development' ? "localhost" : '0.0.0.0',
-		https: process.env.NODE_ENV == 'development' ? {
-			key: fs.readFileSync(path.resolve(__dirname, '../../../data/certificates/server.key')),
-			cert: fs.readFileSync(path.resolve(__dirname, '../../../data/certificates/server.crt'))
-		} : null,
 	},
 	/*
 	** Headers of the page

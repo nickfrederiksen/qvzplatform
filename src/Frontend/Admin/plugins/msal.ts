@@ -7,41 +7,41 @@ import { userStore } from '~/store';
 import { IUserModel } from '~/store/userModule';
 
 declare module '@nuxt/types' {
-	interface NuxtAppOptions {
-		$msal: MSALBasic,
-	}
+  interface NuxtAppOptions {
+    $msal: MSALBasic,
+  }
 }
 declare module 'vue/types/vue' {
-	interface Vue {
-		$msal: MSALBasic,
-	}
+  interface Vue {
+    $msal: MSALBasic,
+  }
 }
 
 const scopes = process.env.adScopes!.split(/,/g);
 
 const myPlugin: Plugin = (context, inject) => {
 
-	inject('msal', new MSAL(
-		{
-			auth: {
-				clientId: process.env.adClientId!,
-				tenantId: process.env.adTenantId!,
-				onAuthentication: (ctx, error, response) => {
-					userStore.sigoutUser();
-				},
-				onToken: (ctx, error, response) => {
-					const msal = ctx as MSALBasic;
-					userStore.siginUser(msal);
-				},
-				beforeSignOut: (ctx) => {
-					userStore.sigoutUser();
-				}
-			},
-			request: {
-				scopes
-			}
-		}, Vue /* [optional] should be passed as an argument if you want to the framework.globalMixin option*/
-	))
+  inject('msal', new MSAL(
+    {
+      auth: {
+        clientId: process.env.adClientId!,
+        tenantId: process.env.adTenantId!,
+        onAuthentication: (ctx, error, response) => {
+          userStore.sigoutUser();
+        },
+        onToken: (ctx, error, response) => {
+          const msal = ctx as MSALBasic;
+          userStore.siginUser(msal);
+        },
+        beforeSignOut: (ctx) => {
+          userStore.sigoutUser();
+        }
+      },
+      request: {
+        scopes
+      }
+    }, Vue /* [optional] should be passed as an argument if you want to the framework.globalMixin option*/
+  ))
 }
 
 export default myPlugin
